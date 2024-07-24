@@ -9,8 +9,8 @@ export default function Nav() {
         <Images color="red" />
       </Link>
       <Link target="_blank" href="https://github.com/nextui-org/nextui">
-        <Button>
-          <Github />
+        <Button variant="ghost">
+          <Github size={20}  />
         </Button>
       </Link>
     </nav>
