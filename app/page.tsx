@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import ImageUpload from "./_components/ImageUpload";
 import { Button } from "@/components/ui/button";
 import { RotateCcw } from "lucide-react";
+import Loader from "@/components/ui/loader";
 
 export default function Home() {
   const [originalImageSrc, setOriginalImageSrc] = useState<string | null>(null);
@@ -27,6 +28,23 @@ export default function Home() {
     }
   }, [loading]);
 
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) {
+      return;
+    }
+    setLoading(true);
+    const img = new Image();
+    img.onload = () => {
+      setOriginalImageSrc(img.src);
+      setCompressedImageSrc(null);
+      setOriginalSize(file.size);
+      setImageName(file.name);
+      setLoading(false);
+    };
+    img.src = URL.createObjectURL(file);
+  };
+
   return (
     <main className="flex min-h-screen flex-col items-center py-36 px-4 sm:px-10 md:px-24 overflow-hidden relative">
       <h2 className="text-2xl md:text-4xl lg:text-8xl uppercase font-black text-center">
@@ -38,7 +56,14 @@ export default function Home() {
       <p className="text-sm text-center font-light text-muted-foreground">
         Compresser vos images (JPEG, PNG, WEBP, SVG)
       </p>
-      <ImageUpload />
+      {loading && <Loader />}
+      {!loading && compressedSize === null && (
+        <>
+          {originalImageSrc === null && (
+            <ImageUpload onChange={handleFileChange} />
+          )}
+        </>
+      )}
     </main>
   );
 }
