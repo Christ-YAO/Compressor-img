@@ -36,11 +36,11 @@ export default function Slider({
   return (
     <div className="w-full relative mt-6 font-light" onMouseUp={handleMouseUp}>
       <p className="flex justify-between items-center mb-2">
-        <span className="text-sm rounded-md py-1 px-2 bg-orange-500 text-white">
+        <span className="text-sm rounded-md py-1 px-2 bg-accent-foreground text-background">
           Before
         </span>
         <span className="w-full h-[1px] bg-accent"></span>
-        <span className="text-sm rounded-md py-1 px-2 bg-green-500 text-white">
+        <span className="text-sm rounded-md py-1 px-2 bg-accent text-accent-foreground">
           After
         </span>
       </p>

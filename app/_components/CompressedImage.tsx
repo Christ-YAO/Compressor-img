@@ -23,22 +23,28 @@ export default function CompressedImage({
   handleDownload,
 }: CompressedImageProps) {
   return (
-    <Card className="max-w-[1000px] mx-auto w-full mt-6 p-5 text-sm md:text-base">
+    <Card className="max-w-[1000px] mx-auto w-full mt-6 p-5 text-sm md:text-base font-extralight">
       <div className="p-3 w-full">
         <p className="my-6">
-          Nom du fichier : <b>{imageName}</b> <br />
-          Format du fichier : <b>{imageFormat.toUpperCase()}</b> <br />
-          Taille originale : <b>{(originalSize / 1024).toPrecision(3)} Ko</b> <br />
-          Taille après compression : <b>{(compressedSize / 1024).toPrecision(3)} Ko</b>
+          File name : <b>{imageName}</b> <br />
+          File format : <b>{imageFormat.toUpperCase()}</b> <br />
+          Original size : <b>{(originalSize / 1024).toPrecision(3)} Ko</b>{" "}
+          <br />
+          Size after compression :{" "}
+          <b>{(compressedSize / 1024).toPrecision(3)} Ko</b>
         </p>
         <Button
-            className="bg-red-500 hover:bg-red-600 text-white font-light"
-            onClick={handleDownload}
-          >
-            Download image <Download size={16} strokeWidth={'1.5px'} className="ml-2" />
-          </Button>
+          className="bg-red-500 hover:bg-red-600 text-white font-light active:scale-95"
+          onClick={handleDownload}
+        >
+          Download image{" "}
+          <Download size={16} strokeWidth={"1.5px"} className="ml-2" />
+        </Button>
       </div>
-      <Slider originalImage={originalImageSrc} compressedImage={compressedImageSrc} />
+      <Slider
+        originalImage={originalImageSrc}
+        compressedImage={compressedImageSrc}
+      />
     </Card>
   );
 }
