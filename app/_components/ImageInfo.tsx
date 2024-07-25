@@ -71,7 +71,7 @@ export default function ImageInfo({
         alt="Original Image"
         width={600}
         height={600}
-        className="w-full block rounded"
+        className="w-full block rounded border border-accent"
       />
     </Card>
   );

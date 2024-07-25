@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { RotateCcw } from "lucide-react";
 import Loader from "@/components/ui/loader";
 import ImageInfo from "./_components/ImageInfo";
+import CompressedImage from "./_components/CompressedImage";
 
 export default function Home() {
   const [originalImageSrc, setOriginalImageSrc] = useState<string | null>(null);
@@ -94,7 +95,7 @@ export default function Home() {
           break;
         default:
           mimeType = "image/jpg";
-          quality = 0.8;
+          break;
       }
 
       const compressedImage = (quality: number) => {
@@ -136,12 +137,32 @@ export default function Home() {
     return new Blob([u8arr], { type: mine });
   };
 
+  const handleReset = () => {
+    setOriginalImageSrc(null);
+    setCompressedImageSrc(null);
+    setOriginalSize(0);
+    setCompressedSize(null);
+    setImageName("");
+    setImageFormat("jpeg");
+    setCompressionType("lossy");
+  };
+
+  const handleDownload = () => {
+    if (!compressedImageSrc) {
+      return;
+    }
+    const a = document.createElement("a");
+    a.href = compressedImageSrc;
+    a.download = `${imageName}_compressed.${imageFormat}`;
+    a.click();
+  };
+
   return (
-    <main className="flex min-h-screen flex-col items-center py-36 px-4 sm:px-10 md:px-24 overflow-hidden relative font-sans">
+    <main className="flex min-h-screen flex-col items-center pt-36 pb-20 px-4 sm:px-10 md:px-24 overflow-hidden relative font-sans">
       <h2 className="text-2xl md:text-4xl lg:text-8xl uppercase font-black text-center">
         <span className="text-red-500">Rapid</span>Img
       </h2>
-      <Button className="absolute top-16 right-8 w-8 h-8 flex items-center justify-center bg-red-500 hover:bg-red-600 rounded-full text-white transition-all p-[6px] ">
+      <Button className="absolute top-16 right-8 w-8 h-8 flex items-center justify-center bg-red-500 hover:bg-red-600 rounded-full text-white transition-all p-[6px] active:scale-95" onClick={handleReset}>
         <RotateCcw strokeWidth={"1.4px"} />{" "}
       </Button>
       <p className="text-sm text-center font-light text-muted-foreground">
@@ -158,13 +179,25 @@ export default function Home() {
               imageName={imageName}
               imageFormat={imageFormat}
               originalSize={originalSize}
-              originalImageSrc={originalImageSrc}
+              originalImageSrc={originalImageSrc as string}
               compressionType={compressionType}
               setCompressionType={setCompressionType}
               handleCompress={handleCompress}
             />
           )}
         </>
+      )}
+
+      {!loading && compressedSize !== null && (
+        <CompressedImage
+          imageName={imageName}
+          imageFormat={imageFormat}
+          originalSize={originalSize}
+          compressedSize={compressedSize}
+          originalImageSrc={originalImageSrc as string}
+          compressedImageSrc={compressedImageSrc as string}
+          handleDownload={handleDownload}
+        />
       )}
     </main>
   );
