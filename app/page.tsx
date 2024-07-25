@@ -137,11 +137,11 @@ export default function Home() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center py-36 px-4 sm:px-10 md:px-24 overflow-hidden relative">
+    <main className="flex min-h-screen flex-col items-center py-36 px-4 sm:px-10 md:px-24 overflow-hidden relative font-sans">
       <h2 className="text-2xl md:text-4xl lg:text-8xl uppercase font-black text-center">
         <span className="text-red-500">Rapid</span>Img
       </h2>
-      <Button className="absolute top-16 right-8 w-8 h-8 flex items-center justify-center bg-red-500 hover:bg-red-600 rounded-full text-white transition-all p-[6px]">
+      <Button className="absolute top-16 right-8 w-8 h-8 flex items-center justify-center bg-red-500 hover:bg-red-600 rounded-full text-white transition-all p-[6px] ">
         <RotateCcw strokeWidth={"1.4px"} />{" "}
       </Button>
       <p className="text-sm text-center font-light text-muted-foreground">
